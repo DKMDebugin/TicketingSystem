@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if show == 'create_user' %}
+    <h1>Sign Up</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'list_user' %}
+    <h1>List of users</h1>
+    {% for object in object_list %}
+      <h3>{{object.id}} - {{object.get_full_name}}</h3>
+    {% endfor %}
+  {% elif show == 'detail_user' %}
+    <h3>{{object.id}} - {{object.get_full_name}}</h3>
+  {% elif show == 'ticket_create' %}
+    <h1>Create Ticket</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'ticket_list' %}
+    <h1>List Tickets</h1>
+    {% for object in object_list %}
+      <h3>{{object.id}} - {{object.subject}}</h3>
+    {% endfor %}
+  {% elif show == 'ticket_detail' %}
+    <h3>{{object.id}} - {{object.subject}}</h3>
+    <p>{{object.subject}}</p>
+  {% elif show == 'ticket_update' %}
+    <h1>Update Ticket</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'project_create' %}
+    <h1>Create Project</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'project_list' %}
+    <h1>List projects</h1>
+    {% for object in object_list %}
+      <h3>{{object.id}} - {{object.name}}</h3>
+    {% endfor %}
+  {% elif show == 'project_detail' %}
+    <h3>{{object.id}} - {{object.name}}</h3>
+    <p>{{object.subject}}</p>
+  {% elif show == 'project_update' %}
+    <h1>Update project</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'company_create' %}
+    <h1>Create company</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'company_list' %}
+    <h1>List companys</h1>
+    {% for object in object_list %}
+      <h3>{{object.id}} - {{object.name}}</h3>
+    {% endfor %}
+  {% elif show == 'company_detail' %}
+    <h3>{{object.id}} - {{object.name}}</h3>
+    <p>{{object.subject}}</p>
+  {% elif show == 'company_update' %}
+    <h1>Update company</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'task_create' %}
+    <h1>Create task</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'task_list' %}
+    <h1>List task</h1>
+    {% for object in object_list %}
+      <h3>{{object.id}} - {{object.name}}</h3>
+    {% endfor %}
+  {% elif show == 'task_detail' %}
+    <h3>{{object.id}} - {{object.name}}</h3>
+    <p>{{object.subject}}</p>
+  {% elif show == 'task_update' %}
+    <h1>Update task</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'search' %}
+    <h1>List {{query}}</h1>
+    {% for object in object_list %}
+      <h3>{{object.id}} - {{object.subject}}</h3>
+    {% endfor %}
+  {% else %}
+    <h1>Home!!!!!!</h1>
+    <form class="" action="{% url 'ticket_search' %}" method="GET" >
+      <input type="search" name="q" placeholder="Ticket(s)" value='{{request.GET.q}}'>
+      <button type="submit">Search</button>
+    </form>
+  {% endif %}
+
+{% endblock %}

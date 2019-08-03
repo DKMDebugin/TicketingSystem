@@ -1,7 +1,18 @@
 from django.contrib.auth.base_user import BaseUserManager
 
+from Ticket.querysets import GeneralQueryset
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
+
+    def get_queryset(self):
+        return GeneralQueryset(self.model, using=self._db)
+
+    # def get(self):
+    #     return self.get_queryset().active()
+
+    def all(self):
+        return self.get_queryset().active()
 
     def _create_user(self, email, password, **extra_fields):
         """

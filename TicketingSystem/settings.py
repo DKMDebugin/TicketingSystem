@@ -25,7 +25,7 @@ SECRET_KEY = '!9bl4k!wct0r$zvje5j7$^jn!+z*55oz-jrvdj(lwv*k#t&6ch'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Algiers'
 
 USE_I18N = True
 
@@ -121,6 +121,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'login'
 
 # property to make django use the custom user model
 AUTH_USER_MODEL = 'Auth.User'

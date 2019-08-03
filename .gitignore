@@ -1,2 +1,3 @@
 ts_env/
 db.sqlite3
+test_mailgun_*

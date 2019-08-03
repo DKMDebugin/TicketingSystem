@@ -6,6 +6,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save, pre_save
+from django.urls import reverse
 
 from .managers import UserManager
 
@@ -47,11 +48,30 @@ class User(AbstractBaseUser, PermissionsMixin):
         '''
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-def req_user_created_receiver(sender, instance, *args, **kwargs):
-    if not User.objects.filter(id=instance.id).exists():
-        subject = f'Your Account has been Created'
-        message = f'Hello {instance.get_short_name()}, \nYour account with ID {instance.id} has been created. Thank you for join our team. \n\nRegards.'
-        from_email = 'no_reply@salimonjamiu.com'
-        instance.email_user(subject=subject, message=message, from_email=from_email)
+    def get_absolute_url(self):
+        return reverse('user_detail', kwargs={'pk': self.pk})
 
-post_save.connect(req_user_created_receiver, sender=User, weak=False)
+# def req_user_created_receiver(sender, instance, *args, **kwargs):
+#     if not User.objects.filter(id=instance.id).exists():
+#         subject = f'Your Account has been Created'
+#         message = f'Hello {instance.get_short_name()}, \nYour account with email {instance.email} has been created. Thank you for join our team. \n\nRegards.'
+#         from_email = 'no_reply@salimonjamiu.com'
+#         instance.email_user(subject=subject, message=message, from_email=from_email)
+#
+# post_save.connect(req_user_created_receiver, sender=User, weak=False)
+
+def req_user_create_update_receiver(sender, instance, *args, **kwargs):
+    if User.objects.filter(id=instance.id).exists():
+        original_user = User.objects.filter(id=instance.id)
+        if original_user != instance:
+            subject = f'User With Email <{instance.email}> Has Been Updated'
+            message = f'Hello {instance.get_short_name()}, \nYour account with ID <{instance.id}> has been updated. \n\nRegards.'
+            from_email = 'no_reply@salimonjamiu.com'
+            instance.email_user(subject=subject, message=message, from_email=from_email, fail_silently=True,)
+    else:
+        subject = f'Ticket With Email <{instance.email}> Has Been Created'
+        message = f'Hello {instance.get_short_name()}, \nYour account with email <{instance.email}> has been created. \n\nRegards.'
+        from_email = 'no_reply@salimonjamiu.com'
+        instance.email_user(subject=subject, message=message, from_email=from_email, fail_silently=True,)
+
+pre_save.connect(req_user_create_update_receiver, sender=User, weak=False)
