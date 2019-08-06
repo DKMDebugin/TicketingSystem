@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     'Auth',
     'Ticket',
+
+    'storages',
 ]
 
 MIDDLEWARE = [
