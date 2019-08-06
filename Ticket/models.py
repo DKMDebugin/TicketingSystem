@@ -5,6 +5,8 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
+from decouple import config
+
 from Auth.models import User
 from .managers import GeneralManager
 
@@ -80,17 +82,16 @@ class Ticket(models.Model):
         return reverse('ticket_detail', kwargs={'pk': self.pk})
 
 def req_ticket_create_update_receiver(sender, instance, *args, **kwargs):
+    from_email = config('from_email')
     if Ticket.objects.filter(id=instance.id).exists():
         original_ticket = Ticket.objects.filter(id=instance.id)
         if original_ticket != instance:
             subject = f'Ticket With ID {instance.id} Has Been Updated'
             message = f'Hello {instance.user.get_short_name()}, \nYour ticket with ID {instance.id} has been updated. We\'ll continue working on it & you\'ll get a feedback as soon as possible. \n\nRegards.'
-            from_email = 'no_reply@salimonjamiu.com'
             instance.user.email_user(subject=subject, message=message, from_email=from_email, fail_silently=True,)
     else:
         subject = f'Ticket With ID {instance.id} Has Been Issued'
         message = f'Hello {instance.user.get_short_name()}, \nYour ticket with ID {instance.id} has been created. We have started working on it & you\'ll get a feedback as soon as possible. \n\nRegards.'
-        from_email = 'no_reply@salimonjamiu.com'
         instance.user.email_user(subject=subject, message=message, from_email=from_email, fail_silently=True,)
 
 pre_save.connect(req_ticket_create_update_receiver, sender=Ticket, weak=False)

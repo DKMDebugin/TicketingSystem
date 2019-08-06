@@ -6,23 +6,16 @@
     <h1>Sign Up</h1>
     {% include 'snippets/form.html' with form=form %}
   {% elif show == 'list_user' %}
-    <h1>List of users</h1>
-    {% for object in object_list %}
-      <h3>{{object.id}} - {{object.get_full_name}}</h3>
-    {% endfor %}
+    {% include 'snippets/user_list.html' %}
   {% elif show == 'detail_user' %}
-    <h3>{{object.id}} - {{object.get_full_name}}</h3>
+    {% include 'snippets/user_detail.html' %}
   {% elif show == 'ticket_create' %}
     <h1>Create Ticket</h1>
     {% include 'snippets/form.html' with form=form %}
   {% elif show == 'ticket_list' %}
-    <h1>List Tickets</h1>
-    {% for object in object_list %}
-      <h3>{{object.id}} - {{object.subject}}</h3>
-    {% endfor %}
+    {% include 'snippets/ticket_list.html' %}
   {% elif show == 'ticket_detail' %}
-    <h3>{{object.id}} - {{object.subject}}</h3>
-    <p>{{object.subject}}</p>
+    {% include 'snippets/ticket_detail.html' %}
   {% elif show == 'ticket_update' %}
     <h1>Update Ticket</h1>
     {% include 'snippets/form.html' with form=form %}
@@ -30,13 +23,9 @@
     <h1>Create Project</h1>
     {% include 'snippets/form.html' with form=form %}
   {% elif show == 'project_list' %}
-    <h1>List projects</h1>
-    {% for object in object_list %}
-      <h3>{{object.id}} - {{object.name}}</h3>
-    {% endfor %}
+    {% include 'snippets/project_list.html' %}
   {% elif show == 'project_detail' %}
-    <h3>{{object.id}} - {{object.name}}</h3>
-    <p>{{object.subject}}</p>
+    {% include 'snippets/project_detail.html' %}
   {% elif show == 'project_update' %}
     <h1>Update project</h1>
     {% include 'snippets/form.html' with form=form %}
@@ -44,13 +33,9 @@
     <h1>Create company</h1>
     {% include 'snippets/form.html' with form=form %}
   {% elif show == 'company_list' %}
-    <h1>List companys</h1>
-    {% for object in object_list %}
-      <h3>{{object.id}} - {{object.name}}</h3>
-    {% endfor %}
+    {% include 'snippets/company_list.html' %}
   {% elif show == 'company_detail' %}
-    <h3>{{object.id}} - {{object.name}}</h3>
-    <p>{{object.subject}}</p>
+    {% include 'snippets/company_detail.html' %}
   {% elif show == 'company_update' %}
     <h1>Update company</h1>
     {% include 'snippets/form.html' with form=form %}
@@ -58,27 +43,17 @@
     <h1>Create task</h1>
     {% include 'snippets/form.html' with form=form %}
   {% elif show == 'task_list' %}
-    <h1>List task</h1>
-    {% for object in object_list %}
-      <h3>{{object.id}} - {{object.name}}</h3>
-    {% endfor %}
+    {% include 'snippets/task_list.html' %}
   {% elif show == 'task_detail' %}
-    <h3>{{object.id}} - {{object.name}}</h3>
-    <p>{{object.subject}}</p>
+    {% include 'snippets/task_detail.html' %}
   {% elif show == 'task_update' %}
     <h1>Update task</h1>
     {% include 'snippets/form.html' with form=form %}
   {% elif show == 'search' %}
-    <h1>List {{query}}</h1>
-    {% for object in object_list %}
-      <h3>{{object.id}} - {{object.subject}}</h3>
-    {% endfor %}
+    {% include 'snippets/ticket_search.html' %}
   {% else %}
-    <h1>Home!!!!!!</h1>
-    <form class="" action="{% url 'ticket_search' %}" method="GET" >
-      <input type="search" name="q" placeholder="Ticket(s)" value='{{request.GET.q}}'>
-      <button type="submit">Search</button>
-    </form>
+    <h1>Trouble Ticketing System</h1>
+    <p>This is a system that increases the efficieny of problem handling for an organisation. It can also be improvised for other purposes e.g, Project Managment</p>
   {% endif %}
 
 {% endblock %}

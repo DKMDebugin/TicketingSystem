@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 
+from decouple import config
+
 from Auth.models import User
 from .models import Task, Project, Company, Ticket
 from .forms import TicketForm
@@ -38,7 +40,7 @@ def recieve_incoming_mail(request):
             subject = 'Create an account'
             message = 'Hello,\nYou tried to create a ticket for resolution but your email doesnt exist in our database.\nCreate an account via the link below & resend the mail.\nhttp://127.0.0.1:8000/user/create/\nRegards'
             send_mail(subject=subject, message=message,
-            from_email='no_reply@mg.salimonjamiu.com',
+            from_email= config('from_email'),
             recipient_list=[from_email])
 
     # Mailgun needs a 2** http response to know the process was successful

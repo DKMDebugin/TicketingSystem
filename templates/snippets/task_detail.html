@@ -1,0 +1,17 @@
+
+<div class="detail_heading">
+  <h2>Task with ID: {{object.id}}</h2>
+  <a href="{% url 'task_update' object.id %}"><i class="fas fa-edit"></i></a>
+</div>
+<div class="detail">
+  <h3>Name: </h3> <p>{{ object.name }}</p>
+</div>
+<div class="detail">
+  <h3>Desc: </h3> <p>{{ object.desc }}</p>
+</div>
+<div class="detail">
+  <h3>Project: </h3> <p>{{ object.project }}</p>
+</div>
+<div class="detail">
+  <h3>Active: </h3> <p>{{ object.is_active }}</p>
+</div>

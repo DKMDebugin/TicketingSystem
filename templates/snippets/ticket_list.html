@@ -1,0 +1,29 @@
+
+<div class="list_heading">
+  <h1>Open Tickets</h1>
+  <a href="{% url 'ticket_create' %}"><i class="fas fa-plus-circle"></i></a>
+</div>
+<table class='table'>
+  <tr>
+    <th>S/N</th>
+    <th>View</th>
+    <th>Author</th>
+    <th>Subject</th>
+    <th>Date</th>
+    <th>Status</th>
+    <th>Priority</th>
+    <th>Active</th>
+  </tr>
+  {% for object in object_list %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td><a href="{% url 'ticket_detail' object.id %}"><i class="fas fa-pen"></i></a></td>
+    <td>{{ object.user.first_name }}</td>
+    <td>{{ object.subject }}</td>
+    <td>{{ object.request_time }}</td>
+    <td>{{ object.status }}</td>
+    <td>{{ object.priority }}</td>
+    <td>{{ object.is_active }}</td>
+  </tr>
+  {% endfor %}
+</table>

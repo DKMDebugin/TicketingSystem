@@ -1,0 +1,12 @@
+{% url 'company_list' as company_list_url %}
+{% url 'project_list' as project_list_url %}
+{% url 'task_list' as task_list_url %}
+{% url 'ticket_list' as ticket_list_url %}
+{% url 'user_list' as user_list_url %}
+<div class="sidebar" id='mySidebar'>
+  <a class='{% if request.path == company_list_url %}active{% endif %}' href="{{company_list_url}}" data-text='Companies'><i class="fas fa-building"></i></a>
+  <a class='{% if request.path == project_list_url %}active{% endif %}' href="{{project_list_url}}" data-text='Projects'><i class="fas fa-project-diagram"></i></a>
+  <a class='{% if request.path == task_list_url %}active{% endif %}' href="{{task_list_url}}" data-text='Tasks'><i class="fas fa-tasks"></i></a>
+  <a class='{% if request.path == ticket_list_url %}active{% endif %}' href="{{ticket_list_url}}" data-text='Tickets'><i class="fas fa-ticket-alt"></i></a>
+  <a class='{% if request.path == user_list_url %}active{% endif %}' href="{{user_list_url}}" data-text='Users'><i class="fas fa-users"></i></a>
+</div>
