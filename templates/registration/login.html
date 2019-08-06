@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Login</h1>
+  {% include 'snippets/form.html' with form=form %}
+  <div class="create_user">
+    <p>Create an account <a href='{% url 'user_create' %}'>HERE</a> if you dont have one already.</p>
+  </div>
+{% endblock %}

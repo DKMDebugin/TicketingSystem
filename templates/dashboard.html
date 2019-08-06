@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if show == 'create_user' %}
+    <h1>Sign Up</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'list_user' %}
+    {% include 'snippets/user_list.html' %}
+  {% elif show == 'detail_user' %}
+    {% include 'snippets/user_detail.html' %}
+  {% elif show == 'ticket_create' %}
+    <h1>Create Ticket</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'ticket_list' %}
+    {% include 'snippets/ticket_list.html' %}
+  {% elif show == 'ticket_detail' %}
+    {% include 'snippets/ticket_detail.html' %}
+  {% elif show == 'ticket_update' %}
+    <h1>Update Ticket</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'project_create' %}
+    <h1>Create Project</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'project_list' %}
+    {% include 'snippets/project_list.html' %}
+  {% elif show == 'project_detail' %}
+    {% include 'snippets/project_detail.html' %}
+  {% elif show == 'project_update' %}
+    <h1>Update project</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'company_create' %}
+    <h1>Create company</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'company_list' %}
+    {% include 'snippets/company_list.html' %}
+  {% elif show == 'company_detail' %}
+    {% include 'snippets/company_detail.html' %}
+  {% elif show == 'company_update' %}
+    <h1>Update company</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'task_create' %}
+    <h1>Create task</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'task_list' %}
+    {% include 'snippets/task_list.html' %}
+  {% elif show == 'task_detail' %}
+    {% include 'snippets/task_detail.html' %}
+  {% elif show == 'task_update' %}
+    <h1>Update task</h1>
+    {% include 'snippets/form.html' with form=form %}
+  {% elif show == 'search' %}
+    {% include 'snippets/ticket_search.html' %}
+  {% else %}
+    <h1>Trouble Ticketing System</h1>
+    <p>This is a system that increases the efficieny of problem handling for an organisation. It can also be improvised for other purposes e.g, Project Managment</p>
+  {% endif %}
+
+{% endblock %}

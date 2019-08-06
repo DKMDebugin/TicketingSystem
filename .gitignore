@@ -1,2 +1,5 @@
 ts_env/
 db.sqlite3
+test_mailgun_*
+.env
+__pycache__

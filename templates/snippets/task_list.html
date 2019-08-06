@@ -1,0 +1,25 @@
+
+<div class="list_heading">
+  <h1>Active Tasks</h1>
+  <a href="{% url 'task_create' %}"><i class="fas fa-plus-circle"></i></a>
+</div>
+<table class='table'>
+  <tr>
+    <th>S/N</th>
+    <th>View</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Project</th>
+    <th>Active</th>
+  </tr>
+  {% for object in object_list %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td><a href="{% url 'task_detail' object.id %}"><i class="fas fa-pen"></i></a></td>
+    <td>{{ object.name }}</td>
+    <td>{{ object.desc }}</td>
+    <td>{{ object.project }}</td>
+    <td>{{ object.is_active }}</td>
+  </tr>
+  {% endfor %}
+</table>

@@ -1,0 +1,11 @@
+
+<div class="detail_heading">
+  <h2>Company with ID: {{object.id}}</h2>
+  <a href="{% url 'company_update' object.id %}"><i class="fas fa-edit"></i></a>
+</div>
+<div class="detail">
+  <h3>Name: </h3> <p>{{ object.name }}</p>
+</div>
+<div class="detail">
+  <h3>Active: </h3> <p>{{ object.is_active }}</p>
+</div>

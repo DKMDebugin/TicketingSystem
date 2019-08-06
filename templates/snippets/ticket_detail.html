@@ -1,0 +1,23 @@
+
+<div class="detail_heading">
+  <h2>Ticket with ID: {{object.id}}</h2>
+  <a href="{% url 'ticket_update' object.id %}"><i class="fas fa-edit"></i></a>
+</div>
+<div class="detail">
+  <h3>Author: </h3> <p>{{ object.user.get_full_name }}</p>
+</div>
+<div class="detail">
+  <h3>Subject: </h3> <p>{{ object.subject }}</p>
+</div>
+<div class="detail">
+  <h3>Date: </h3> <p>{{ object.request_time }}</p>
+</div>
+<div class="detail">
+  <h3>Status: </h3> <p>{{ object.status }}</p>
+</div>
+<div class="detail">
+  <h3>Priority: </h3> <p>{{ object.priority }}</p>
+</div>
+<div class="detail">
+  <h3>Active: </h3> <p>{{ object.is_active }}</p>
+</div>
