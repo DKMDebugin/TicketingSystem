@@ -85,9 +85,11 @@ body {
     float: left;
   }
   .responsive.sidebar {
-    top: 190px;
+    top: 194px;
   }
 }
+/* width - 768   top - 238px*/
+/* width - 645   top - 188px*/
 
 
 /* The side navigation menu */
@@ -171,7 +173,7 @@ body {
     margin-left: 28.612%;
   }
   .responsive.sidebar {
-    top: 190px;
+    top: 188px;
   }
 }
 @media only screen and (max-width: 599px) and (min-width: 480px) {
