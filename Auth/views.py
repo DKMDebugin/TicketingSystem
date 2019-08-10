@@ -1,20 +1,31 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.views import LoginView
 from django.views import View
 from django.http import HttpResponseRedirect
 
 from Auth.models import User
+from .forms import UserAdminCreationForm
+from .mixins import IsUserLoggedInMixin
+
+
+class UserLoginView(IsUserLoggedInMixin, LoginView):
+    """Extends the LoginView class"""
+    """Add mixin to check if user is authencticated"""
+
 
 def user_del_view(request, pk):
+    """User deactivate function view"""
     if pk:
         User.objects.filter(pk=pk).update(is_active=False)
         return HttpResponseRedirect('/')
 
 class UserCreateView(CreateView):
+    """Extends the CreateView class"""
     model = User
     template_name = 'dashboard.html'
-    fields = ['first_name', 'last_name', 'email']
+    form_class = UserAdminCreationForm
 
     def get_context_data(self, *args, **kwargs):
         context = super(UserCreateView, self).get_context_data(*args, **kwargs)
@@ -22,6 +33,7 @@ class UserCreateView(CreateView):
         return context
 
 class UserDetailView(DetailView):
+    """Extends the DetailView class"""
     models = User
     template_name = 'dashboard.html'
 
@@ -36,6 +48,7 @@ class UserDetailView(DetailView):
         return context
 
 class UserListView(ListView):
+    """Extends the ListView class"""
     models = User
     queryset = User.objects.all()
     template_name = 'dashboard.html'

@@ -4,6 +4,7 @@ document.querySelector('a.icon').addEventListener('click', () => {
   let sidebar = document.querySelector('#mySidebar');
   if(navUl.className === 'topnav' & sidebar.className === 'sidebar') {
     navUl.className += ' responsive';
+    // navUl.style['max-width'] = window.innerWidth;
     sidebar.className += ' responsive';
   } else {
     navUl.className = 'topnav';
@@ -15,7 +16,7 @@ let sidebarLinks = document.querySelectorAll('.sidebar a')
 // when the cursor is moved over thr links of the sidebar, a small text pop up
 Array.from(sidebarLinks).forEach( a => {
   a.onmouseover = event => {
-    event.preventDefault();
+    // event.preventDefault();
     if (!document.querySelector('body span')){
       let span = document.createElement('span');
       span.textContent = a.getAttribute('data-text');
@@ -26,10 +27,10 @@ Array.from(sidebarLinks).forEach( a => {
     };
   };
 });
-// AFter the cursor is moved over thr links of the sidebar, a small text is removed
+// After the cursor is moved over thr links of the sidebar, a small text is removed
 Array.from(sidebarLinks).forEach( a => {
   a.onmouseout = event => {
-    event.preventDefault();
+    // event.preventDefault();
     let span = document.querySelector('body span');
     if (span){
       document.body.removeChild(span);
