@@ -3,4 +3,5 @@ db.sqlite3
 test_mailgun_*
 .env
 __pycache__
-~/Desktop/Projects/TicketingSystem/ts-copy.css
+ts-copy.css
+ts_backup.json
