@@ -12,7 +12,7 @@
   <h3>Last Name: </h3> <p>{{ object.last_name }}</p>
 </div>
 <div class="detail">
-  <h3>Date Joined: </h3> <p>{{ object.date_joined }}</p>
+  <h3>Date Joined: </h3> <p>{{ object.date_joined|date:"F d, Y" }}</p>
 </div>
 <div class="detail">
   <h3>Staff: </h3> <p>{{ object.is_staff }}</p>

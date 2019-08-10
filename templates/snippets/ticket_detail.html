@@ -10,7 +10,7 @@
   <h3>Subject: </h3> <p>{{ object.subject }}</p>
 </div>
 <div class="detail">
-  <h3>Date: </h3> <p>{{ object.request_time }}</p>
+  <h3>Date: </h3> <p>{{ object.request_time|date:"F d, Y" }}</p>
 </div>
 <div class="detail">
   <h3>Status: </h3> <p>{{ object.status }}</p>

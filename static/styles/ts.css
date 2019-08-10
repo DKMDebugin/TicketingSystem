@@ -85,33 +85,31 @@ body {
     float: left;
   }
   .responsive.sidebar {
-    top: 238px;
+    top: 190px;
   }
 }
 
 
 /* The side navigation menu */
 .sidebar {
-  position: absolute; /* Set the navbar to fixed position */
+  position: fixed; /* Set the navbar to fixed position */
   left: 0; /* Position the navbar at the top of the page */
   top: 48px;
   width: 200px;
-  /* max-height: 700px; */
   margin: 0;
   padding: 0;
   background-color: #f6f7f7;
-  position: fixed;
-  height: 100%;
   overflow: auto;
 }
-
+.sidebar, .content {
+  min-height: 100vh;
+}
 
 /* Sidebar links */
 .sidebar a {
   display: block;
   color: black;
   margin: 2.5em 85px;
-  /* padding: 30px 0; */
   text-decoration: none;
   font-size: 30px;
 }
@@ -128,7 +126,7 @@ body {
 
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 .content {
-  padding: 48px 20px;
+  padding: 48px 20px 0 20px;
   margin-left: 200px;
   font-size: 80%
 }
@@ -249,13 +247,24 @@ body {
 .list_heading {
   display: grid;
   grid-template-columns: 250px 50px;
-  grid-column-gap: 400px;
+  grid-column-gap: 0px;
 }
 .list_heading a {
   font-size: 20px;
   color: #607D8B;
   outline: none;
-  padding-top: 40px;
+  padding-top: 20px;
+}
+@media only screen and (max-width: 480px) {
+  .list_heading {
+    display: grid;
+    grid-template-columns: 250px 50px;
+    grid-column-gap: 0;
+  }
+  .list_heading a {
+    font-size: 16px;
+    padding-top: 18px;
+  }
 }
 /* View details heading style */
 .detail_heading {

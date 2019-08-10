@@ -20,7 +20,7 @@
     <td><a href="{% url 'ticket_detail' object.id %}"><i class="fas fa-pen"></i></a></td>
     <td>{{ object.user.first_name }}</td>
     <td>{{ object.subject }}</td>
-    <td>{{ object.request_time }}</td>
+    <td>{{ object.request_time|date:"F d, Y" }}</td>
     <td>{{ object.status }}</td>
     <td>{{ object.priority }}</td>
     <td>{{ object.is_active }}</td>
