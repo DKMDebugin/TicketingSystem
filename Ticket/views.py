@@ -38,7 +38,7 @@ def recieve_incoming_mail(request):
         else:
             # send email to sender to create an Account
             subject = 'Create an account'
-            message = 'Hello,\nYou tried to create a ticket for resolution but your email doesnt exist in our database.\nCreate an account via the link below & resend the mail.\nhttp://127.0.0.1:8000/user/create/\nRegards'
+            message = 'Hello,\nYou tried to create a ticket for resolution but your email doesnt exist in our database.\nCreate an account via the link below & resend the mail.\nhttps://tcsys.herokuapp.com/user/create/\nRegards'
             send_mail(subject=subject, message=message,
             from_email= config('from_email'),
             recipient_list=[from_email])
