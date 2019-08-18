@@ -23,16 +23,13 @@ def recieve_incoming_mail(request):
     '''
     if request.method == 'POST':
         # reference mime
-        from_email    = request.POST.get('from')
         subject   = request.POST.get('subject', '')
         body_plain = request.POST.get('body-plain', '')
-        # incase of attachment(s)
-        if request.FILES:
-            for key in request.FILES:
-                 file = request.FILES[key]
+        sender = request.POST.get('sender', '')
+
         # check if user exist before issuing ticket from incoming email
-        if User.objects.filter(email=from_email).active().exists():
-            user = User.objects.get(email=from_email)
+        if User.objects.filter(email=sender).active().exists():
+            user = User.objects.get(email=sender)
             Ticket.objects.create(user=user, subject=subject, message=body_plain)
             print('Incoming Email Consumed!!!!!')
         else:

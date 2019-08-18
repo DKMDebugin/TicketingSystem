@@ -82,12 +82,16 @@ class Ticket(models.Model):
         return reverse('ticket_detail', kwargs={'pk': self.pk})
 
 def req_ticket_create_update_receiver(sender, instance, *args, **kwargs):
+    # reciever function for ticket model
     from_email = config('from_email')
     if Ticket.objects.filter(id=instance.id).exists():
-        original_ticket = Ticket.objects.filter(id=instance.id)
-        if original_ticket != instance:
-            subject = f'Ticket With ID {instance.id} Has Been Updated'
-            message = f'Hello {instance.user.get_short_name()}, \nYour ticket with ID {instance.id} has been updated. We\'ll continue working on it & you\'ll get a feedback as soon as possible. \n\nRegards.'
+        if instance.status == 'close':
+            subject = f'Ticket With ID {instance.id} Has Been Closed'
+            message = f'Hello {instance.user.get_short_name()}, \nYour ticket with ID {instance.id} has been closed. We hope the resolution to this trouble was up to satisfaction. \n\nRegards.'
+            instance.user.email_user(subject=subject, message=message, from_email=from_email, fail_silently=True,)
+        elif instance.status == 'pending':
+            subject = f'Work Has Begun On Your Ticket With ID {instance.id}'
+            message = f'Hello {instance.user.get_short_name()}, \nWe\'ve started working on your ticket with ID {instance.id}. \n\nRegards.'
             instance.user.email_user(subject=subject, message=message, from_email=from_email, fail_silently=True,)
     else:
         subject = f'Ticket With ID {instance.id} Has Been Issued'

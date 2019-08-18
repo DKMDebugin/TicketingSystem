@@ -53,22 +53,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         return reverse('user_detail', kwargs={'pk': self.pk})
 
-# def req_user_created_receiver(sender, instance, *args, **kwargs):
-#     if not User.objects.filter(id=instance.id).exists():
-#         subject = f'Your Account has been Created'
-#         message = f'Hello {instance.get_short_name()}, \nYour account with email {instance.email} has been created. Thank you for join our team. \n\nRegards.'
-#         from_email = 'no_reply@salimonjamiu.com'
-#         instance.email_user(subject=subject, message=message, from_email=from_email)
-#
-# post_save.connect(req_user_created_receiver, sender=User, weak=False)
 
 def req_user_create_update_receiver(sender, instance, *args, **kwargs):
+    # reciever function for user model
     from_email = config('from_email')
-    if User.objects.filter(id=instance.id).exists():
-        original_user = User.objects.filter(id=instance.id)
-        if original_user != instance:
+    if User.objects.filter(email=instance.email).exists():
+        original_user = User.objects.get(email=instance.email)
+        if original_user.email != instance.email or original_user.first_name != instance.first_name or original_user.last_name != instance.last_name or original_user.is_staff != instance.is_staff:
             subject = f'User With Email <{instance.email}> Has Been Updated'
             message = f'Hello {instance.get_short_name()}, \nYour account with ID <{instance.id}> has been updated. \n\nRegards.'
+            instance.email_user(subject=subject, message=message, from_email=from_email, fail_silently=True,)
+        elif instance.is_active != original_user.is_active and not instance.is_active:
+            subject = f'Your Account Has Been Deactivated'
+            message = f'Hello {instance.get_short_name()}, \nYour account with ID <{instance.id}> has been deactivated. \n\nSorry to see you go.'
             instance.email_user(subject=subject, message=message, from_email=from_email, fail_silently=True,)
     else:
         subject = f'Ticket With Email <{instance.email}> Has Been Created'
