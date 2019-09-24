@@ -6,14 +6,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
+from django.core.files.storage import FileSystemStorage
+from django.http import QueryDict
 
 from decouple import config
 
 from Auth.models import User
-from .models import Task, Project, Company, Ticket
-from .forms import TicketForm
+from .models import Task, Project, Company, Ticket, Attachment
+from .forms import TicketForm, AttachmentForm
 from .decorators import is_curr_user_superuser
 from .mixins import SuperUserMixin
+from .utils import *
 
 @csrf_exempt
 def recieve_incoming_mail(request):
@@ -23,6 +26,7 @@ def recieve_incoming_mail(request):
     '''
     if request.method == 'POST':
         # reference mime
+        # print(request.POST, request.FILES)
         subject   = request.POST.get('subject', '')
         body_plain = request.POST.get('body-plain', '')
         sender = request.POST.get('sender', '')
@@ -30,8 +34,33 @@ def recieve_incoming_mail(request):
         # check if user exist before issuing ticket from incoming email
         if User.objects.filter(email=sender).active().exists():
             user = User.objects.get(email=sender)
-            Ticket.objects.create(user=user, subject=subject, message=body_plain)
-            print('Incoming Email Consumed!!!!!')
+            ticket = Ticket.objects.create(user=user, subject=subject,
+                message=body_plain
+                )
+            if ticket and request.FILES:
+                # print('About to start saving files!!!')
+                # print(ticket.pk)
+                dict={'ticket': ticket}
+                data = QueryDict('', mutable=True)
+                data.update(dict)
+                # print(data)
+                form = AttachmentForm(dict, request.FILES)
+                # print(form)
+                print(form.errors)
+                if form.is_valid():
+                    print('Saving file!!!')
+                    form.save()
+                # count = 1
+                # for file in request.FILES:
+                #     print(f'File - {count}')
+                #     # fs = FileSystemStorage()
+                #     # filename = fs.save('myFile', file)
+                #     # uploaded_file_url = fs.url(filename)
+                #     # Attachment.objects.create(ticket=ticket, file=file)
+                #     attachment = AttachmentForm({'ticket':ticket}, request.FILES)
+                #     print(f'Attached file {count} - ')
+                #     ++count
+            # print('Incoming Email Consumed!!!!!')
         else:
             # send email to sender to create an Account
             subject = 'Create an account'
@@ -103,6 +132,7 @@ class TicketListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(TicketListView, self).get_context_data(*args, **kwargs)
+
         context['show'] = 'ticket_list'
         return context
 

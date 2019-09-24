@@ -5,3 +5,8 @@ test_mailgun_*
 __pycache__
 ts-copy.css
 ts_backup.json
+ticketing.docx
+TicketingSystem/settings/development.py
+./static/
+./staticfiles/
+./development.py
